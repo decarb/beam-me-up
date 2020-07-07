@@ -8,33 +8,30 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BeamCommandManager implements CommandExecutor {
     private final BeamMeUp pluginInstance;
-    private final ArrayList<SubCommand> subCommands = new ArrayList<>();
+    private final Map<String, SubCommand> subCommands = new HashMap<>();
 
     // TODO: Add commands for "list" and "remove"
     public BeamCommandManager(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
-        this.subCommands.add(new GoSubCommand("go", this.pluginInstance));
-        this.subCommands.add(new SetSubCommand("set", this.pluginInstance));
+        this.subCommands.put("go", new GoSubCommand("go", this.pluginInstance));
+        this.subCommands.put("set", new SetSubCommand("set", this.pluginInstance));
     }
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player) {
-            // TODO: Make this look nicer - I hate OOP ways of solving collection issues - Make use of Map?
             if (strings.length > 0) {
-                SubCommand ex = null;
-                for (SubCommand sub : this.subCommands) {
-                    if (sub.name().equals(strings[0])) {
-                        ex = sub;
-                        break;
-                    }
+                if (this.subCommands.containsKey(strings[0])) {
+                    SubCommand sub = this.subCommands.get(strings[0]);
+                    String[] args = Arrays.copyOfRange(strings, 1, strings.length);
+                    sub.onCommand(commandSender, args);
                 }
-
-                if (ex == null) commandSender.sendMessage("Invalid sub-command for " + command.getName());
-                else ex.onCommand(commandSender, Arrays.copyOfRange(strings, 1, strings.length));
+                else commandSender.sendMessage("Invalid sub-command " + strings[0]);
             } else {
                 commandSender.sendMessage("No sub-command given for " + command.getName());
             }
