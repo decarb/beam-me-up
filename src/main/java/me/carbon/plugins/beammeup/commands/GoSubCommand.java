@@ -29,10 +29,11 @@ public class GoSubCommand extends SubCommand {
         } else {
             LocationFileManager lfm = new LocationFileManager(this.pluginInstance);
             Map<String, Location> locations = lfm.readLocations();
+            String name = strings[0].toLowerCase();
 
-            if (locations.containsKey(strings[0])) {
-                ((Player) commandSender).teleport(locations.get(strings[0]));
-                commandSender.sendMessage("You were teleported to " + strings[0]);
+            if (locations.containsKey(name)) {
+                ((Player) commandSender).teleport(locations.get(name));
+                commandSender.sendMessage("You were teleported to " + name);
             } else {
                 commandSender.sendMessage("Location not found - Make sure that you typed the name correctly");
             }

@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+// TODO: Implement TagCompleter (not too important)
 public class BeamCommandManager implements CommandExecutor {
     private final BeamMeUp pluginInstance;
     private final Map<String, SubCommand> subCommands = new HashMap<>();

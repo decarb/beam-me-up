@@ -24,7 +24,7 @@ public class SetSubCommand extends SubCommand {
     public void onCommand(CommandSender commandSender, String[] strings) {
         if (strings.length != 1) commandSender.sendMessage("Expected only one argument");
         else {
-            String name = strings[0];
+            String name = strings[0].toLowerCase();
             Location here = ((Player) commandSender).getLocation();
             LocationFileManager lfm = new LocationFileManager(this.pluginInstance);
 

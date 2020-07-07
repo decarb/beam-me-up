@@ -8,4 +8,4 @@ description: "A SpigotMC plugin that is used to teleport players between predefi
 commands:
   beam:
     description: "Main command for the beam-me-up plugin"
-    usage: /beam
+    usage: /beam [go, set] <args>

@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.UUID;
 
 // TODO: Use GSON instead of this garbage
-// TODO: Update location saving so that you don't have to overwrite file each time - Not super important
+// TODO: Update location saving so that you don't have to overwrite file each time (not too important)
 public class LocationFileManager {
     private final BeamMeUp pluginInstance;
 
@@ -55,7 +55,6 @@ public class LocationFileManager {
         return out;
     }
 
-    // TODO: Save location as lower case
     public boolean saveLocation(String name, Location location) {
         Map<String, Location> locations = this.readLocations();
         if (locations.containsKey(name)) {
