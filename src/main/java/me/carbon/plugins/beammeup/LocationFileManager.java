@@ -1,23 +1,35 @@
 package me.carbon.plugins.beammeup;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import org.bukkit.Location;
-import org.bukkit.World;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.lang.reflect.Type;
+import java.util.*;
 
-// TODO: Use GSON instead of this garbage
-// TODO: Update location saving so that you don't have to overwrite file each time (not too important)
 public class LocationFileManager {
+    private class LocationJson {
+        private final String name;
+        private final UUID world_uuid;
+        private final double x;
+        private final double y;
+        private final double z;
+
+        public LocationJson(String name, UUID worldUuid, double x, double y, double z) {
+            this.name = name;
+            this.world_uuid = worldUuid;
+            this.x = x;
+            this.y = y;
+            this.z = z;
+        }
+    }
+
     private final BeamMeUp pluginInstance;
 
     public LocationFileManager(BeamMeUp pluginInstance) {
@@ -30,24 +42,26 @@ public class LocationFileManager {
 
         if (f.exists()) {
             try {
-                JSONParser parser = new JSONParser();
-                FileReader fr = new FileReader(f);
+                Type locationsType = new TypeToken<ArrayList<LocationJson>>() {
+                }.getType();
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                JsonReader jr = new JsonReader(new FileReader(f));
 
-                JSONArray array = (JSONArray) parser.parse(fr);
-                for (Object o : array) {
-                    JSONObject json = (JSONObject) o;
+                List<LocationJson> locations = gson.fromJson(jr, locationsType);
 
-                    World world = this.pluginInstance.getServer().getWorld(UUID.fromString((String) json.get("world_uuid")));
-                    double x = (double) json.get("x");
-                    double y = (double) json.get("y");
-                    double z = (double) json.get("z");
+                for (LocationJson location : locations) {
+                    Location l = new Location(
+                            this.pluginInstance.getServer().getWorld(location.world_uuid),
+                            location.x,
+                            location.y,
+                            location.z
+                    );
 
-                    Location location = new Location(world, x, y, z);
-                    out.put((String) json.get("name"), location);
+                    out.put(location.name, l);
                 }
 
-                fr.close();
-            } catch (ParseException | IOException e) {
+                jr.close();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
@@ -57,11 +71,8 @@ public class LocationFileManager {
 
     public boolean saveLocation(String name, Location location) {
         Map<String, Location> locations = this.readLocations();
-        if (locations.containsKey(name)) {
-            locations.replace(name, location);
-        } else {
-            locations.put(name, location);
-        }
+        if (locations.containsKey(name)) locations.replace(name, location);
+        else locations.put(name, location);
 
         return this.writeLocations(locations);
     }
@@ -73,22 +84,20 @@ public class LocationFileManager {
         try {
             if (!dataFolder.exists()) dataFolder.mkdirs();
             FileWriter fw = new FileWriter(f, false);
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-            JSONArray writeArray = new JSONArray();
+            List<LocationJson> locationJson = new ArrayList<>();
             for (Map.Entry<String, Location> entry : locations.entrySet()) {
-                JSONObject o = new JSONObject();
-                Location location = entry.getValue();
-
-                o.put("name", entry.getKey());
-                o.put("x", location.getX());
-                o.put("y", location.getY());
-                o.put("z", location.getZ());
-                o.put("world_uuid", location.getWorld().getUID().toString());
-
-                writeArray.add(o);
+                locationJson.add(new LocationJson(
+                        entry.getKey(),
+                        entry.getValue().getWorld().getUID(),
+                        entry.getValue().getX(),
+                        entry.getValue().getY(),
+                        entry.getValue().getZ()
+                ));
             }
 
-            fw.write(writeArray.toJSONString());
+            fw.write(gson.toJson(locationJson));
             fw.flush();
             fw.close();
 
