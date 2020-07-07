@@ -25,10 +25,10 @@ Spigot plugin that allows players to teleport between predefined locations. Work
 
 ### Set sub-command
 Set takes your current location as well as a name and saves it to the locations.json file in your plugin resource folder. 
-Example usage: `/beam set Home`
+Example usage: `/beam set sand`
 
 ### Go sub-command
 Go takes the argument provided, searches for a location saved under that name and then teleports you to that location.
-Example usage: `/beam go Home`
+Example usage: `/beam go pond`
 
 **NB!** This plugin does not check for permissions! This will also be added at a later stage.
