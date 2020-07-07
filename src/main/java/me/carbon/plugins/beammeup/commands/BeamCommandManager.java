@@ -4,12 +4,14 @@ import me.carbon.plugins.beammeup.BeamMeUp;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BeamCommandManager implements CommandExecutor {
     private BeamMeUp pluginInstance;
-    private ArrayList<SubCommand> subCommands = new ArrayList<>();
+    private final ArrayList<SubCommand> subCommands = new ArrayList<>();
 
     public BeamCommandManager(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
@@ -19,7 +21,26 @@ public class BeamCommandManager implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        commandSender.sendMessage("Calling beam command");
+        if (commandSender instanceof Player) {
+            // TODO: Make this look nicer - I hate OOP ways of solving collection issues
+            if (strings.length > 0) {
+                SubCommand ex = null;
+                for (SubCommand sub : this.subCommands) {
+                    if (sub.name().equals(strings[0])) {
+                        ex = sub;
+                        break;
+                    }
+                }
+
+                if (ex == null) commandSender.sendMessage("Invalid sub-command for " + command.getName());
+                else ex.onCommand(commandSender, Arrays.copyOfRange(strings, 1, strings.length));
+            } else {
+                commandSender.sendMessage("No sub-command given for " + command.getName());
+            }
+        } else {
+            commandSender.sendMessage("Only players are allowed to use this command");
+        }
+
         return true;
     }
 }

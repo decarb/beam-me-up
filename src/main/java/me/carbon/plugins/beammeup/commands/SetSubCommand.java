@@ -16,7 +16,7 @@ public class SetSubCommand extends SubCommand {
     }
 
     @Override
-    public void onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public void onCommand(CommandSender commandSender, String[] strings) {
         commandSender.sendMessage("Calling set sub-command");
     }
 }

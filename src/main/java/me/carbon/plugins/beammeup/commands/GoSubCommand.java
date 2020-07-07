@@ -16,7 +16,7 @@ public class GoSubCommand extends SubCommand {
     }
 
     @Override
-    public void onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public void onCommand(CommandSender commandSender, String[] strings) {
         commandSender.sendMessage("Calling go sub-command");
     }
 }
