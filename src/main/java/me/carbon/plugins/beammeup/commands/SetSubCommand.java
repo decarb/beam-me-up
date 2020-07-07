@@ -6,8 +6,6 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Map;
-
 public class SetSubCommand extends SubCommand {
     private final String name;
     private final BeamMeUp pluginInstance;
@@ -24,7 +22,7 @@ public class SetSubCommand extends SubCommand {
 
     @Override
     public void onCommand(CommandSender commandSender, String[] strings) {
-        if (strings.length > 1) commandSender.sendMessage("Expected only one argument");
+        if (strings.length != 1) commandSender.sendMessage("Expected only one argument");
         else {
             String name = strings[0];
             Location here = ((Player) commandSender).getLocation();

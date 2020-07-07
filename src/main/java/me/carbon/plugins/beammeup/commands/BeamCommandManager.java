@@ -15,7 +15,7 @@ public class BeamCommandManager implements CommandExecutor {
 
     public BeamCommandManager(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
-        this.subCommands.add(new GoSubCommand("go"));
+        this.subCommands.add(new GoSubCommand("go", this.pluginInstance));
         this.subCommands.add(new SetSubCommand("set", this.pluginInstance));
     }
 

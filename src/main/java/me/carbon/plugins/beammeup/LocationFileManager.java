@@ -7,10 +7,15 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
+// TODO: Use GSON instead of this garbage
 // TODO: Update location saving so that you don't have to overwrite file each time - Not super important
 public class LocationFileManager {
     private final BeamMeUp pluginInstance;
@@ -32,7 +37,7 @@ public class LocationFileManager {
                 for (Object o : array) {
                     JSONObject json = (JSONObject) o;
 
-                    World world = this.pluginInstance.getServer().getWorld((String) json.get("world_uuid"));
+                    World world = this.pluginInstance.getServer().getWorld(UUID.fromString((String) json.get("world_uuid")));
                     double x = (double) json.get("x");
                     double y = (double) json.get("y");
                     double z = (double) json.get("z");
@@ -50,9 +55,14 @@ public class LocationFileManager {
         return out;
     }
 
+    // TODO: Save location as lower case
     public boolean saveLocation(String name, Location location) {
         Map<String, Location> locations = this.readLocations();
-        if (locations.containsKey(name)) locations.replace(name, location); else locations.put(name, location);
+        if (locations.containsKey(name)) {
+            locations.replace(name, location);
+        } else {
+            locations.put(name, location);
+        }
 
         return this.writeLocations(locations);
     }
@@ -69,11 +79,13 @@ public class LocationFileManager {
             for (Map.Entry<String, Location> entry : locations.entrySet()) {
                 JSONObject o = new JSONObject();
                 Location location = entry.getValue();
+
                 o.put("name", entry.getKey());
                 o.put("x", location.getX());
                 o.put("y", location.getY());
                 o.put("z", location.getZ());
                 o.put("world_uuid", location.getWorld().getUID().toString());
+
                 writeArray.add(o);
             }
 

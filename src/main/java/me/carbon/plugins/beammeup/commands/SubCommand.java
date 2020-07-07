@@ -1,6 +1,5 @@
 package me.carbon.plugins.beammeup.commands;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 public abstract class SubCommand {
