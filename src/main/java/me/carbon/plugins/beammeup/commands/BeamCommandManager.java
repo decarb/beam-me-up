@@ -13,6 +13,7 @@ public class BeamCommandManager implements CommandExecutor {
     private final BeamMeUp pluginInstance;
     private final ArrayList<SubCommand> subCommands = new ArrayList<>();
 
+    // TODO: Add commands for "list" and "remove"
     public BeamCommandManager(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
         this.subCommands.add(new GoSubCommand("go", this.pluginInstance));
