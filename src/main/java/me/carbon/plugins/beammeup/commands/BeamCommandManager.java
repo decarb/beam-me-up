@@ -10,19 +10,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class BeamCommandManager implements CommandExecutor {
-    private BeamMeUp pluginInstance;
+    private final BeamMeUp pluginInstance;
     private final ArrayList<SubCommand> subCommands = new ArrayList<>();
 
     public BeamCommandManager(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
         this.subCommands.add(new GoSubCommand("go"));
-        this.subCommands.add(new SetSubCommand("set"));
+        this.subCommands.add(new SetSubCommand("set", this.pluginInstance));
     }
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player) {
-            // TODO: Make this look nicer - I hate OOP ways of solving collection issues
+            // TODO: Make this look nicer - I hate OOP ways of solving collection issues - Make use of Map?
             if (strings.length > 0) {
                 SubCommand ex = null;
                 for (SubCommand sub : this.subCommands) {

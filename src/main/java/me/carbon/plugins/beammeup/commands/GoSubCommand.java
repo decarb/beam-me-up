@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 public class GoSubCommand extends SubCommand {
-    private String name;
+    private final String name;
 
     public GoSubCommand(String name) {
         this.name = name;
