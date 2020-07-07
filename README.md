@@ -12,6 +12,4 @@ Example usage: `/beam set Home`
 Go takes the argument provided, searches for a location saved under that name and then teleports you to that location.
 Example usage: `/beam go Home`
 
-**NB!** Locations are currently case-sensitive so I suggest that you use lower-case locations. This will be changed in later versions.
-
-**NBB!** This plugin does not check for permissions! This will also be added at a later stage.
+**NB!** This plugin does not check for permissions! This will also be added at a later stage.
