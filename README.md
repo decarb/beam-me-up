@@ -1,5 +1,7 @@
 # beam-me-up
-Spigot plugin that allows players to teleport between predefined locations. Working for Paper/Spigot servers above version 1.14.4+. Locations are saved in a a json file (`locations.json`) in the plugin resource folder. This is an example of a `locations.json` file.
+Spigot plugin that allows players to teleport between predefined locations. Working for Paper/Spigot servers above 
+version 1.14.4+. Locations are saved in a a json file (`locations.json`) in the plugin resource folder. This is an 
+example of a `locations.json` file.
 
 ```json
 [
@@ -20,6 +22,8 @@ Spigot plugin that allows players to teleport between predefined locations. Work
 ]
 ```
 
+This plugin SHOULD have multiverse support (saves worlds as UUID) however I have not tested it, so try at your own risk!
+
 ## Usage
 ```
 /beam go <location> - teleports the player to a saved location with the name <location>
@@ -29,19 +33,26 @@ Spigot plugin that allows players to teleport between predefined locations. Work
 ```
 
 ### Set sub-command
-Set takes your current location as well as a name and saves it to the locations.json file in your plugin resource folder. 
+The set command takes your current location as well as a name and saves it to the locations.json file in your plugin 
+resource folder. 
 
 Example usage: `/beam set sand`
 
 ### Go sub-command
-Go takes the argument provided, searches for a location saved under that name and then teleports you to that location.
+The go command takes the location name argument provided, searches for a location saved under that name and then 
+teleports the player using the command to that location.
 
 Example usage: `/beam go pond`
 
 ### List sub-command
-List will list all the names of locations currently saved in `locations.json`
+The list command lists all the names of locations currently saved in `locations.json`
 
 Example usage: `/beam list`
+
+### Remove sub-command
+The remove command takes the location name argument provided and attempts to remove it from the `locations.json` file.
+
+Example usage: `/beam remove sand`
 
 ## Permissions
 ```yaml
