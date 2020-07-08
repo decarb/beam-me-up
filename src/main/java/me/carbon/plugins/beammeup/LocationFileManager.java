@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
 
+// TODO: Implement service-repo model (Not too important - more impotant for PostgreSQL integration)
 public class LocationFileManager {
     private class LocationJson {
         private final String name;
@@ -105,5 +106,11 @@ public class LocationFileManager {
 
             return false;
         }
+    }
+
+    public boolean removeLocation(String name) {
+        Map<String, Location> locations = this.readLocations();
+        locations.remove(name);
+        return this.writeLocations(locations);
     }
 }

@@ -31,6 +31,6 @@ public class ListSubCommand extends SubCommand {
                 for (String location : locationSet) sb.append("\n- ").append(location);
                 commandSender.sendMessage(sb.toString());
             } else commandSender.sendMessage("Expected zero arguments");
-        }
+        } else commandSender.sendMessage("You do not have permission to use this command");
     }
 }

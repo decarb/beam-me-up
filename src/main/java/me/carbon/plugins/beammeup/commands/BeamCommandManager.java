@@ -1,10 +1,7 @@
 package me.carbon.plugins.beammeup.commands;
 
 import me.carbon.plugins.beammeup.BeamMeUp;
-import me.carbon.plugins.beammeup.commands.subcommands.GoSubCommand;
-import me.carbon.plugins.beammeup.commands.subcommands.ListSubCommand;
-import me.carbon.plugins.beammeup.commands.subcommands.SetSubCommand;
-import me.carbon.plugins.beammeup.commands.subcommands.SubCommand;
+import me.carbon.plugins.beammeup.commands.subcommands.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,12 +17,13 @@ public class BeamCommandManager implements CommandExecutor {
     private final BeamMeUp pluginInstance;
     private final Map<String, SubCommand> subCommands = new HashMap<>();
 
-    // TODO: Add commands for "remove" and "help"
+    // TODO: Add command for "help"
     public BeamCommandManager(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
         this.subCommands.put("go", new GoSubCommand("go", this.pluginInstance));
         this.subCommands.put("set", new SetSubCommand("set", this.pluginInstance));
         this.subCommands.put("list", new ListSubCommand("list", this.pluginInstance));
+        this.subCommands.put("remove", new RemoveSubCommand("remove", this.pluginInstance));
     }
 
     // TODO: Allow for certain sub-commands to be run from the console

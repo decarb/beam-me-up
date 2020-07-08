@@ -38,4 +38,4 @@ permissions:
 
   beam.remove:
     description: Permission to allow the remove sub-command
-    default: true
+    default: false

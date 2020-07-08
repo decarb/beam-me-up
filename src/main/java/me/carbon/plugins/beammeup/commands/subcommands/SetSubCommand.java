@@ -23,15 +23,14 @@ public class SetSubCommand extends SubCommand {
     @Override
     public void onCommand(CommandSender commandSender, String[] strings) {
         if (commandSender.hasPermission("beam.set")) {
-            if (strings.length != 1) commandSender.sendMessage("Expected only one argument");
-            else {
+            if (strings.length == 1) {
                 String name = strings[0].toLowerCase();
                 Location here = ((Player) commandSender).getLocation();
                 LocationFileManager lfm = new LocationFileManager(this.pluginInstance);
 
                 if (lfm.saveLocation(name, here)) commandSender.sendMessage("Locations updated successfully");
                 else commandSender.sendMessage("Something went wrong with the location saver - Please report an issue");
-            }
+            } else commandSender.sendMessage("Expected one argument");
         } else commandSender.sendMessage("You do not have permission to use this command");
     }
 }
