@@ -1,4 +1,4 @@
-package me.carbon.plugins.beammeup.commands;
+package me.carbon.plugins.beammeup.commands.subcommands;
 
 import me.carbon.plugins.beammeup.BeamMeUp;
 import me.carbon.plugins.beammeup.LocationFileManager;
@@ -6,13 +6,11 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Map;
-
-public class GoSubCommand extends SubCommand {
+public class SetSubCommand extends SubCommand {
     private final String name;
     private final BeamMeUp pluginInstance;
 
-    public GoSubCommand(String name, BeamMeUp pluginInstance) {
+    public SetSubCommand(String name, BeamMeUp pluginInstance) {
         this.name = name;
         this.pluginInstance = pluginInstance;
     }
@@ -24,17 +22,15 @@ public class GoSubCommand extends SubCommand {
 
     @Override
     public void onCommand(CommandSender commandSender, String[] strings) {
-        if (commandSender.hasPermission("beam.go")) {
+        if (commandSender.hasPermission("beam.set")) {
             if (strings.length != 1) commandSender.sendMessage("Expected only one argument");
             else {
-                LocationFileManager lfm = new LocationFileManager(this.pluginInstance);
-                Map<String, Location> locations = lfm.readLocations();
                 String name = strings[0].toLowerCase();
+                Location here = ((Player) commandSender).getLocation();
+                LocationFileManager lfm = new LocationFileManager(this.pluginInstance);
 
-                if (locations.containsKey(name)) {
-                    ((Player) commandSender).teleport(locations.get(name));
-                    commandSender.sendMessage("You were teleported to " + name);
-                } else commandSender.sendMessage("Location not found - Make sure that you typed the name correctly");
+                if (lfm.saveLocation(name, here)) commandSender.sendMessage("Locations updated successfully");
+                else commandSender.sendMessage("Something went wrong with the location saver - Please report an issue");
             }
         } else commandSender.sendMessage("You do not have permission to use this command");
     }

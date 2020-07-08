@@ -71,9 +71,7 @@ public class LocationFileManager {
 
     public boolean saveLocation(String name, Location location) {
         Map<String, Location> locations = this.readLocations();
-        if (locations.containsKey(name)) locations.replace(name, location);
-        else locations.put(name, location);
-
+        locations.put(name, location);
         return this.writeLocations(locations);
     }
 

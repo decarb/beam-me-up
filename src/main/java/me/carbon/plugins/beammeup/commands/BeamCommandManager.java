@@ -1,6 +1,10 @@
 package me.carbon.plugins.beammeup.commands;
 
 import me.carbon.plugins.beammeup.BeamMeUp;
+import me.carbon.plugins.beammeup.commands.subcommands.GoSubCommand;
+import me.carbon.plugins.beammeup.commands.subcommands.ListSubCommand;
+import me.carbon.plugins.beammeup.commands.subcommands.SetSubCommand;
+import me.carbon.plugins.beammeup.commands.subcommands.SubCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -8,6 +12,7 @@ import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 // TODO: Implement TagCompleter (not too important)
@@ -15,13 +20,15 @@ public class BeamCommandManager implements CommandExecutor {
     private final BeamMeUp pluginInstance;
     private final Map<String, SubCommand> subCommands = new HashMap<>();
 
-    // TODO: Add commands for "list", "remove" and "help"
+    // TODO: Add commands for "remove" and "help"
     public BeamCommandManager(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
         this.subCommands.put("go", new GoSubCommand("go", this.pluginInstance));
         this.subCommands.put("set", new SetSubCommand("set", this.pluginInstance));
+        this.subCommands.put("list", new ListSubCommand("list", this.pluginInstance));
     }
 
+    // TODO: Allow for certain sub-commands to be run from the console
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player) {

@@ -1,4 +1,4 @@
-package me.carbon.plugins.beammeup.commands;
+package me.carbon.plugins.beammeup.commands.subcommands;
 
 import org.bukkit.command.CommandSender;
 

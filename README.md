@@ -24,6 +24,7 @@ Spigot plugin that allows players to teleport between predefined locations. Work
 ```
 /beam go <location> - teleports the player to a saved location with the name <location>
 /beam set <location> - takes the location the player is currently at and saves it as <location>
+/beam list - lists all the names of saved locations
 ```
 
 ### Set sub-command
@@ -36,6 +37,11 @@ Go takes the argument provided, searches for a location saved under that name an
 
 Example usage: `/beam go pond`
 
+### List sub-command
+List will list all the names of locations currently saved in `locations.json`
+
+Example usage: `/beam list`
+
 ## Permissions
 ```yaml
 beam.*:
@@ -44,6 +50,7 @@ beam.*:
   children:
     beam.go: true
     beam.set: true
+    beam.list: true
 
 beam.go:
   description: Permission to allow the go sub-command
@@ -52,4 +59,8 @@ beam.go:
 beam.set:
   description: Permission to allow the set sub-command
   default: false
+
+beam.list:
+  description: Permission to allow the list sub-command
+  default: true
 ```
