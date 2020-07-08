@@ -24,19 +24,22 @@ public class GoSubCommand extends SubCommand {
 
     @Override
     public void onCommand(CommandSender commandSender, String[] strings) {
-        if (strings.length != 1) {
-            commandSender.sendMessage("Expected only one argument");
-        } else {
-            LocationFileManager lfm = new LocationFileManager(this.pluginInstance);
-            Map<String, Location> locations = lfm.readLocations();
-            String name = strings[0].toLowerCase();
+        if (commandSender.hasPermission("beam.go")) {
+            if (strings.length != 1) commandSender.sendMessage("Expected only one argument");
+            else {
+                LocationFileManager lfm = new LocationFileManager(this.pluginInstance);
+                Map<String, Location> locations = lfm.readLocations();
+                String name = strings[0].toLowerCase();
 
-            if (locations.containsKey(name)) {
-                ((Player) commandSender).teleport(locations.get(name));
-                commandSender.sendMessage("You were teleported to " + name);
-            } else {
-                commandSender.sendMessage("Location not found - Make sure that you typed the name correctly");
+                if (locations.containsKey(name)) {
+                    ((Player) commandSender).teleport(locations.get(name));
+                    commandSender.sendMessage("You were teleported to " + name);
+                } else {
+                    commandSender.sendMessage("Location not found - Make sure that you typed the name correctly");
+                }
             }
+        } else {
+            commandSender.sendMessage("You do not have permission to use this command");
         }
     }
 }

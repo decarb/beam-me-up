@@ -1,11 +1,29 @@
 name: beam-me-up
-main: me.carbon.plugins.beammeup.BeamMeUp
 version: "1.0.2"
-api-version: "1.14"
-author: Carbon
 description: "A SpigotMC plugin that is used to teleport players between predefined locations!"
+author: Carbon
+api-version: "1.14"
+main: me.carbon.plugins.beammeup.BeamMeUp
 
 commands:
   beam:
     description: "Main command for the beam-me-up plugin"
-    usage: /beam [go, set] <args>
+    usage: |
+      /beam go <location> - teleports the player to a saved location with the name <location>
+      /beam set <location> - takes the location the player is currently at and saves it as <location>
+
+permissions :
+  beam.*:
+    description: Permission to allow all sub-commands
+    default: op
+    children:
+      beam.go: true
+      beam.set: true
+
+  beam.go:
+    description: Permission to allow the go sub-command
+    default: true
+
+  beam.set:
+    description: Permission to allow the set sub-command
+    default: false
