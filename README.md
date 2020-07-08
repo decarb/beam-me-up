@@ -1,6 +1,6 @@
 # beam-me-up
 Spigot plugin that allows players to teleport between predefined locations. Working for Paper/Spigot servers above 
-version 1.14.4+. Locations are saved in a a json file (`locations.json`) in the plugin resource folder. This is an 
+version 1.14.4+. The locations are saved in a json file (`locations.json`) in the plugin resource folder. This is an 
 example of a `locations.json` file.
 
 ```json
@@ -79,5 +79,5 @@ beam.list:
 
 beam.remove:
   description: Permission to allow the remove sub-command
-  default: true
+  default: false
 ```
