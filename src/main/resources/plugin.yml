@@ -1,5 +1,5 @@
 name: beam-me-up
-version: "1.0.3-SNAPSHOT"
+version: "1.0.3"
 description: "A SpigotMC plugin that is used to teleport players between predefined locations!"
 author: Carbon
 api-version: "1.14"

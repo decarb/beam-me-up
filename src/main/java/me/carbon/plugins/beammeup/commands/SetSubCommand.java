@@ -32,8 +32,6 @@ public class SetSubCommand extends SubCommand {
                 if (lfm.saveLocation(name, here)) commandSender.sendMessage("Locations updated successfully");
                 else commandSender.sendMessage("Something went wrong with the location saver - Please report an issue");
             }
-        } else {
-            commandSender.sendMessage("You do not have permission to use this command");
-        }
+        } else commandSender.sendMessage("You do not have permission to use this command");
     }
 }

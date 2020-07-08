@@ -34,12 +34,8 @@ public class GoSubCommand extends SubCommand {
                 if (locations.containsKey(name)) {
                     ((Player) commandSender).teleport(locations.get(name));
                     commandSender.sendMessage("You were teleported to " + name);
-                } else {
-                    commandSender.sendMessage("Location not found - Make sure that you typed the name correctly");
-                }
+                } else commandSender.sendMessage("Location not found - Make sure that you typed the name correctly");
             }
-        } else {
-            commandSender.sendMessage("You do not have permission to use this command");
-        }
+        } else commandSender.sendMessage("You do not have permission to use this command");
     }
 }

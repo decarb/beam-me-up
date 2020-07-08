@@ -15,7 +15,7 @@ public class BeamCommandManager implements CommandExecutor {
     private final BeamMeUp pluginInstance;
     private final Map<String, SubCommand> subCommands = new HashMap<>();
 
-    // TODO: Add commands for "list" and "remove"
+    // TODO: Add commands for "list", "remove" and "help"
     public BeamCommandManager(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
         this.subCommands.put("go", new GoSubCommand("go", this.pluginInstance));
@@ -30,14 +30,9 @@ public class BeamCommandManager implements CommandExecutor {
                     SubCommand sub = this.subCommands.get(strings[0]);
                     String[] args = Arrays.copyOfRange(strings, 1, strings.length);
                     sub.onCommand(commandSender, args);
-                }
-                else commandSender.sendMessage("Invalid sub-command " + strings[0]);
-            } else {
-                commandSender.sendMessage("No sub-command given for " + command.getName());
-            }
-        } else {
-            commandSender.sendMessage("Only players are allowed to use this command");
-        }
+                } else commandSender.sendMessage("Invalid sub-command " + strings[0]);
+            } else commandSender.sendMessage("No sub-command given for " + command.getName());
+        } else commandSender.sendMessage("Only players are allowed to use this command");
 
         return true;
     }
