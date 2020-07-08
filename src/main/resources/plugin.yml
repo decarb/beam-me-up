@@ -1,5 +1,5 @@
 name: beam-me-up
-version: "1.0.4-SNAPSHOT"
+version: "1.0.5-SNAPSHOT"
 description: "A SpigotMC plugin that is used to teleport players between predefined locations!"
 author: Carbon
 api-version: "1.14"
@@ -12,8 +12,9 @@ commands:
       /beam go <location> - teleports the player to a saved location with the name <location>
       /beam set <location> - takes the location the player is currently at and saves it as <location>
       /beam list - lists all the names of saved locations
+      /beam remove <location> - removes a location from the list of saved locations
 
-permissions :
+permissions:
   beam.*:
     description: Permission to allow all sub-commands
     default: op
@@ -21,6 +22,7 @@ permissions :
       beam.go: true
       beam.set: true
       beam.list: true
+      beam.remove: true
 
   beam.go:
     description: Permission to allow the go sub-command
@@ -32,4 +34,8 @@ permissions :
 
   beam.list:
     description: Permission to allow the list sub-command
+    default: true
+
+  beam.remove:
+    description: Permission to allow the remove sub-command
     default: true

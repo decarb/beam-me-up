@@ -25,6 +25,7 @@ Spigot plugin that allows players to teleport between predefined locations. Work
 /beam go <location> - teleports the player to a saved location with the name <location>
 /beam set <location> - takes the location the player is currently at and saves it as <location>
 /beam list - lists all the names of saved locations
+/beam remove <location> - removes a location from the list of saved locations
 ```
 
 ### Set sub-command
@@ -51,7 +52,8 @@ beam.*:
     beam.go: true
     beam.set: true
     beam.list: true
-
+    beam.remove: true
+  
 beam.go:
   description: Permission to allow the go sub-command
   default: true
@@ -62,5 +64,9 @@ beam.set:
 
 beam.list:
   description: Permission to allow the list sub-command
+  default: true
+
+beam.remove:
+  description: Permission to allow the remove sub-command
   default: true
 ```
