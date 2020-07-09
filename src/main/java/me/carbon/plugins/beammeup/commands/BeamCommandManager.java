@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 // TODO: Implement TagCompleter (not too important)

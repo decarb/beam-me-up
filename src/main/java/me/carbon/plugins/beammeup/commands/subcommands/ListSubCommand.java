@@ -4,7 +4,8 @@ import me.carbon.plugins.beammeup.BeamMeUp;
 import me.carbon.plugins.beammeup.LocationFileManager;
 import org.bukkit.command.CommandSender;
 
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListSubCommand extends SubCommand {
     private final String name;
@@ -25,10 +26,14 @@ public class ListSubCommand extends SubCommand {
         if (commandSender.hasPermission("beam.list")) {
             if (strings.length == 0) {
                 LocationFileManager lfm = new LocationFileManager(this.pluginInstance);
-                Set<String> locationSet = lfm.readLocations().keySet();
+                List<String> locationList = lfm.readLocations()
+                        .keySet()
+                        .stream()
+                        .sorted()
+                        .collect(Collectors.toList());
 
                 StringBuilder sb = new StringBuilder().append("Locations:");
-                for (String location : locationSet) sb.append("\n- ").append(location);
+                for (String location : locationList) sb.append("\n- ").append(location);
                 commandSender.sendMessage(sb.toString());
             } else commandSender.sendMessage("Expected zero arguments");
         } else commandSender.sendMessage("You do not have permission to use this command");
