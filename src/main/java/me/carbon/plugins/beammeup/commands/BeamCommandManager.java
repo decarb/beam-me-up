@@ -3,16 +3,14 @@ package me.carbon.plugins.beammeup.commands;
 import me.carbon.plugins.beammeup.BeamMeUp;
 import me.carbon.plugins.beammeup.commands.subcommands.*;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 // TODO: Implement TagCompleter (not too important)
-public class BeamCommandManager implements CommandExecutor {
+public class BeamCommandManager implements TabExecutor {
     private final BeamMeUp pluginInstance;
     private final Map<String, SubCommand> subCommands;
 
@@ -40,5 +38,10 @@ public class BeamCommandManager implements CommandExecutor {
         } else commandSender.sendMessage("Only players are allowed to use this command");
 
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        return new ArrayList<>();
     }
 }

@@ -12,8 +12,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
+import java.util.stream.Collectors;
 
-// TODO: Implement service-repo model (Not too important - more impotant for PostgreSQL integration)
+// TODO: Implement service-repo model (Not too important - more important for PostgreSQL integration)
 public class LocationFileManager {
     private class LocationJson {
         private final String name;
@@ -37,9 +38,13 @@ public class LocationFileManager {
         this.pluginInstance = pluginInstance;
     }
 
+    public Location readLocation(String name) {
+        Map<String, Location> locations = this.readLocations();
+        return locations.get(name);
+    }
+
     public Map<String, Location> readLocations() {
         File f = new File(this.pluginInstance.getDataFolder(), this.pluginInstance.getLocationFileName());
-        Map<String, Location> out = new HashMap<>();
 
         if (f.exists()) {
             try {
@@ -50,24 +55,26 @@ public class LocationFileManager {
 
                 List<LocationJson> locations = gson.fromJson(jr, locationsType);
 
-                for (LocationJson location : locations) {
-                    Location l = new Location(
-                            this.pluginInstance.getServer().getWorld(location.world_uuid),
-                            location.x,
-                            location.y,
-                            location.z
-                    );
-
-                    out.put(location.name, l);
-                }
+                Map<String, Location> out = locations.stream().collect(
+                        Collectors.toMap(
+                                l -> l.name,
+                                l -> new Location(this.pluginInstance.getServer().getWorld(l.world_uuid), l.x, l.y, l.z)
+                        )
+                );
 
                 jr.close();
+
+                return out;
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        return out;
+        return new HashMap<>();
+    }
+
+    public List<String> readLocationNames() {
+        return new ArrayList<>(this.readLocations().keySet());
     }
 
     public boolean saveLocation(String name, Location location) {
@@ -85,16 +92,15 @@ public class LocationFileManager {
             FileWriter fw = new FileWriter(f, false);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-            List<LocationJson> locationJson = new ArrayList<>();
-            for (Map.Entry<String, Location> entry : locations.entrySet()) {
-                locationJson.add(new LocationJson(
-                        entry.getKey(),
-                        entry.getValue().getWorld().getUID(),
-                        entry.getValue().getX(),
-                        entry.getValue().getY(),
-                        entry.getValue().getZ()
-                ));
-            }
+            List<LocationJson> locationJson = locations.entrySet().stream().map(e ->
+                    new LocationJson(
+                            e.getKey(),
+                            e.getValue().getWorld().getUID(),
+                            e.getValue().getX(),
+                            e.getValue().getY(),
+                            e.getValue().getZ()
+                    )
+            ).collect(Collectors.toList());
 
             fw.write(gson.toJson(locationJson));
             fw.flush();
@@ -112,5 +118,9 @@ public class LocationFileManager {
         Map<String, Location> locations = this.readLocations();
         locations.remove(name);
         return this.writeLocations(locations);
+    }
+
+    public boolean hasLocation(String name) {
+        return this.readLocations().containsKey(name);
     }
 }

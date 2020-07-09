@@ -2,11 +2,8 @@ package me.carbon.plugins.beammeup.commands.subcommands;
 
 import me.carbon.plugins.beammeup.BeamMeUp;
 import me.carbon.plugins.beammeup.LocationFileManager;
-import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.Map;
 
 public class GoSubCommand extends SubCommand {
     private final String name;
@@ -27,11 +24,10 @@ public class GoSubCommand extends SubCommand {
         if (commandSender.hasPermission("beam.go")) {
             if (strings.length == 1) {
                 LocationFileManager lfm = new LocationFileManager(this.pluginInstance);
-                Map<String, Location> locations = lfm.readLocations();
                 String name = strings[0].toLowerCase();
 
-                if (locations.containsKey(name)) {
-                    ((Player) commandSender).teleport(locations.get(name));
+                if (lfm.hasLocation(name)) {
+                    ((Player) commandSender).teleport(lfm.readLocation(name));
                     commandSender.sendMessage("You were teleported to " + name);
                 } else commandSender.sendMessage("Location not found - Make sure that you typed the name correctly");
             } else commandSender.sendMessage("Expected one argument");

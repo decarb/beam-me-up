@@ -4,8 +4,8 @@ import me.carbon.plugins.beammeup.BeamMeUp;
 import me.carbon.plugins.beammeup.LocationFileManager;
 import org.bukkit.command.CommandSender;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ListSubCommand extends SubCommand {
     private final String name;
@@ -26,11 +26,8 @@ public class ListSubCommand extends SubCommand {
         if (commandSender.hasPermission("beam.list")) {
             if (strings.length == 0) {
                 LocationFileManager lfm = new LocationFileManager(this.pluginInstance);
-                List<String> locationList = lfm.readLocations()
-                        .keySet()
-                        .stream()
-                        .sorted()
-                        .collect(Collectors.toList());
+                List<String> locationList = lfm.readLocationNames();
+                Collections.sort(locationList);
 
                 StringBuilder sb = new StringBuilder().append("Locations:");
                 for (String location : locationList) sb.append("\n- ").append(location);
