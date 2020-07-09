@@ -15,11 +15,12 @@ import java.util.Map;
 // TODO: Implement TagCompleter (not too important)
 public class BeamCommandManager implements CommandExecutor {
     private final BeamMeUp pluginInstance;
-    private final Map<String, SubCommand> subCommands = new HashMap<>();
+    private final Map<String, SubCommand> subCommands;
 
     // TODO: Add command for "help"
     public BeamCommandManager(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
+        this.subCommands = new HashMap<>();
         this.subCommands.put("go", new GoSubCommand("go", this.pluginInstance));
         this.subCommands.put("set", new SetSubCommand("set", this.pluginInstance));
         this.subCommands.put("list", new ListSubCommand("list", this.pluginInstance));
