@@ -8,7 +8,9 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
+// TODO: Use a listener to remove the stupid extra command?
 // TODO: Implement TagCompleter (not too important)
 public class BeamCommandManager implements TabExecutor {
     private final BeamMeUp pluginInstance;
@@ -17,6 +19,7 @@ public class BeamCommandManager implements TabExecutor {
     // TODO: Add command for "help"
     public BeamCommandManager(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
+
         this.subCommands = new HashMap<>();
         this.subCommands.put("go", new GoSubCommand("go", this.pluginInstance));
         this.subCommands.put("set", new SetSubCommand("set", this.pluginInstance));
@@ -32,7 +35,7 @@ public class BeamCommandManager implements TabExecutor {
                 if (this.subCommands.containsKey(strings[0])) {
                     SubCommand sub = this.subCommands.get(strings[0]);
                     String[] args = Arrays.copyOfRange(strings, 1, strings.length);
-                    sub.onCommand(commandSender, args);
+                    sub.onCommand(commandSender, command, s, args);
                 } else commandSender.sendMessage("Invalid sub-command " + strings[0]);
             } else commandSender.sendMessage("No sub-command given for " + command.getName());
         } else commandSender.sendMessage("Only players are allowed to use this command");
@@ -40,8 +43,23 @@ public class BeamCommandManager implements TabExecutor {
         return true;
     }
 
+    // TODO: Check permissions!
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        return new ArrayList<>();
+        switch (args.length) {
+            case 1:
+                return this.subCommands.keySet()
+                        .stream()
+                        .filter(s -> s.startsWith(args[0]))
+                        .sorted()
+                        .collect(Collectors.toList());
+            case 2:
+                if (this.subCommands.keySet().contains(args[0])) {
+                    String[] argStrings = Arrays.copyOfRange(args, 1, args.length);
+                    return this.subCommands.get(args[0]).onTabComplete(sender, command, alias, argStrings);
+                } else return new ArrayList<>();
+            default:
+                return new ArrayList<>();
+        }
     }
 }
