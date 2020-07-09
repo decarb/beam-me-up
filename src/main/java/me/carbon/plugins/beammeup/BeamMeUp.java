@@ -9,13 +9,13 @@ public class BeamMeUp extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        this.getLogger().info("Beam me up disabled!");
+        this.getLogger().info("beam-me-up disabled!");
     }
 
     @Override
     public void onEnable() {
         this.getCommand("beam").setExecutor(new BeamCommandManager(this));
-        this.getLogger().info("Beam me up enabled!");
+        this.getLogger().info("beam-me-up enabled!");
     }
 
     public String getLocationFileName() {
