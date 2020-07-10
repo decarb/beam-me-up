@@ -14,6 +14,7 @@ import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
 
+// TODO: Find out if there is a better way to keep an in-memory bank of the location names
 // TODO: Implement service-repo model (Not too important - more important for PostgreSQL integration)
 public class LocationFileManager {
     private class LocationJson {
@@ -43,7 +44,27 @@ public class LocationFileManager {
         return locations.get(name);
     }
 
-    public Map<String, Location> readLocations() {
+    public List<String> readLocationNames() {
+        return new ArrayList<>(this.readLocations().keySet());
+    }
+
+    public boolean saveLocation(String name, Location location) {
+        Map<String, Location> locations = this.readLocations();
+        locations.put(name, location);
+        return this.writeLocations(locations);
+    }
+
+    public boolean removeLocation(String name) {
+        Map<String, Location> locations = this.readLocations();
+        locations.remove(name);
+        return this.writeLocations(locations);
+    }
+
+    public boolean hasLocation(String name) {
+        return this.readLocations().containsKey(name);
+    }
+
+    private Map<String, Location> readLocations() {
         File f = new File(this.pluginInstance.getDataFolder(), this.pluginInstance.getLocationFileName());
 
         if (f.exists()) {
@@ -71,16 +92,6 @@ public class LocationFileManager {
         }
 
         return new HashMap<>();
-    }
-
-    public List<String> readLocationNames() {
-        return new ArrayList<>(this.readLocations().keySet());
-    }
-
-    public boolean saveLocation(String name, Location location) {
-        Map<String, Location> locations = this.readLocations();
-        locations.put(name, location);
-        return this.writeLocations(locations);
     }
 
     private boolean writeLocations(Map<String, Location> locations) {
@@ -112,15 +123,5 @@ public class LocationFileManager {
 
             return false;
         }
-    }
-
-    public boolean removeLocation(String name) {
-        Map<String, Location> locations = this.readLocations();
-        locations.remove(name);
-        return this.writeLocations(locations);
-    }
-
-    public boolean hasLocation(String name) {
-        return this.readLocations().containsKey(name);
     }
 }
