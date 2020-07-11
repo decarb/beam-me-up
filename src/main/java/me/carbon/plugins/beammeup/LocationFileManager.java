@@ -13,8 +13,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
-
-// TODO: Find out if there is a better way to keep an in-memory bank of the location names
+q
 // TODO: Implement service-repo model (Not too important - more important for PostgreSQL integration)
 public class LocationFileManager {
     private class LocationJson {
