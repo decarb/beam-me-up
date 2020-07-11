@@ -56,28 +56,41 @@ Example usage: `/beam remove sand`
 
 ## Permissions
 ```yaml
-beam.*:
-  description: Permission to allow all sub-commands
-  default: op
-  children:
-    beam.go: true
-    beam.set: true
-    beam.list: true
-    beam.remove: true
-  
-beam.go:
-  description: Permission to allow the go sub-command
-  default: true
+permissions:
+  beam.command:
+    description: Permission that allows usage of the base beam command
+    default: op
 
-beam.set:
-  description: Permission to allow the set sub-command
-  default: false
+  beam.*:
+    description: Permission to allow all sub-commands
+    default: op
+    children:
+      beam.go: true
+      beam.set: true
+      beam.list: true
+      beam.remove: true
 
-beam.list:
-  description: Permission to allow the list sub-command
-  default: true
+  beam.go:
+    description: Permission to allow the go sub-command
+    default: true
+    children:
+      beam.command: true
 
-beam.remove:
-  description: Permission to allow the remove sub-command
-  default: false
+  beam.set:
+    description: Permission to allow the set sub-command
+    default: false
+    children:
+      beam.command: true
+
+  beam.list:
+    description: Permission to allow the list sub-command
+    default: true
+    children:
+      beam.command: true
+
+  beam.remove:
+    description: Permission to allow the remove sub-command
+    default: false
+    children:
+      beam.command: true
 ```

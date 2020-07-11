@@ -9,12 +9,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SetSubCommand extends SubCommand {
     private final String name;
     private final BeamMeUp pluginInstance;
+    private final String permission = "beam.set";
 
     public SetSubCommand(String name, BeamMeUp pluginInstance) {
         this.name = name;
@@ -27,8 +29,14 @@ public class SetSubCommand extends SubCommand {
     }
 
     @Override
+    public String getPermission() {
+        return this.permission;
+    }
+
+    // TODO: Abstract out permissions
+    @Override
     public void onCommand(CommandSender commandSender, Command parentCommand, String alias, String[] args) {
-        if (commandSender.hasPermission("beam.set")) {
+        if (commandSender.hasPermission(this.permission)) {
             if (args.length == 1) {
                 LocationManager lm = this.pluginInstance.getLocationManager();
                 String name = args[0].toLowerCase();
@@ -46,8 +54,10 @@ public class SetSubCommand extends SubCommand {
             LocationManager lm = this.pluginInstance.getLocationManager();
             List<String> locations = lm.getLocationNames();
 
-            return locations.stream().filter(s -> s.startsWith(args[0])).collect(Collectors.toList());
+            return locations.stream()
+                    .filter(s -> s.startsWith(args[0]))
+                    .collect(Collectors.toList());
         }
-        return new ArrayList<>();
+        return Collections.emptyList();
     }
 }

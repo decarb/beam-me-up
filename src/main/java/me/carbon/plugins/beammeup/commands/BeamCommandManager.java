@@ -8,6 +8,7 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
 import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 // TODO: Use a listener to remove the stupid extra command?
@@ -43,22 +44,21 @@ public class BeamCommandManager implements TabExecutor {
         return true;
     }
 
-    // TODO: Check permissions!
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         switch (args.length) {
             case 1:
-                return this.subCommands.keySet()
-                        .stream()
-                        .filter(s -> s.startsWith(args[0]))
+                return this.subCommands.entrySet().stream()
+                        .filter(e -> sender.hasPermission(e.getValue().getPermission()) && e.getKey().startsWith(args[0]))
+                        .map(Map.Entry::getKey)
                         .collect(Collectors.toList());
             case 2:
                 if (this.subCommands.containsKey(args[0])) {
                     String[] argStrings = Arrays.copyOfRange(args, 1, args.length);
                     return this.subCommands.get(args[0]).onTabComplete(sender, command, alias, argStrings);
-                } else return new ArrayList<>();
+                } else return Collections.emptyList();
             default:
-                return new ArrayList<>();
+                return Collections.emptyList();
         }
     }
 }

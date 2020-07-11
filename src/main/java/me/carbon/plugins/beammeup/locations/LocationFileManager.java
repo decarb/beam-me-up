@@ -78,7 +78,7 @@ public class LocationFileManager {
             }
         }
 
-        return new HashMap<>();
+        return Collections.emptyMap();
     }
 
     private boolean writeLocations(Map<String, Location> locations) {

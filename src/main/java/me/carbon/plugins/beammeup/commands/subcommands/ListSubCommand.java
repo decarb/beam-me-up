@@ -13,6 +13,7 @@ import java.util.List;
 public class ListSubCommand extends SubCommand {
     private final String name;
     private final BeamMeUp pluginInstance;
+    private final String permission = "beam.list";
 
     public ListSubCommand(String name, BeamMeUp pluginInstance) {
         this.name = name;
@@ -25,8 +26,13 @@ public class ListSubCommand extends SubCommand {
     }
 
     @Override
+    public String getPermission() {
+        return this.permission;
+    }
+
+    @Override
     public void onCommand(CommandSender commandSender, Command parentCommand, String alias, String[] args) {
-        if (commandSender.hasPermission("beam.list")) {
+        if (commandSender.hasPermission(this.permission)) {
             if (args.length == 0) {
                 LocationManager lm = this.pluginInstance.getLocationManager();
                 List<String> locationList = lm.getLocationNames();
@@ -41,6 +47,6 @@ public class ListSubCommand extends SubCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String alias, String[] args) {
-        return new ArrayList<>();
+        return Collections.emptyList();
     }
 }
