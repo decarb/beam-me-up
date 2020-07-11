@@ -11,7 +11,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 // TODO: Use a listener to remove the stupid extra command?
-// TODO: Implement TagCompleter (not too important)
 public class BeamCommandManager implements TabExecutor {
     private final BeamMeUp pluginInstance;
     private final Map<String, SubCommand> subCommands;

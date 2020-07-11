@@ -1,7 +1,8 @@
 package me.carbon.plugins.beammeup.commands.subcommands;
 
 import me.carbon.plugins.beammeup.BeamMeUp;
-import me.carbon.plugins.beammeup.LocationFileManager;
+import me.carbon.plugins.beammeup.locations.LocationFileManager;
+import me.carbon.plugins.beammeup.locations.LocationManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -27,8 +28,8 @@ public class ListSubCommand extends SubCommand {
     public void onCommand(CommandSender commandSender, Command parentCommand, String alias, String[] args) {
         if (commandSender.hasPermission("beam.list")) {
             if (args.length == 0) {
-                LocationFileManager lfm = new LocationFileManager(this.pluginInstance);
-                List<String> locationList = lfm.readLocationNames();
+                LocationManager lm = this.pluginInstance.getLocationManager();
+                List<String> locationList = lm.getLocationNames();
                 Collections.sort(locationList);
 
                 StringBuilder sb = new StringBuilder().append("Locations:");

@@ -1,9 +1,10 @@
-package me.carbon.plugins.beammeup;
+package me.carbon.plugins.beammeup.locations;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import me.carbon.plugins.beammeup.BeamMeUp;
 import org.bukkit.Location;
 
 import java.io.File;
@@ -38,15 +39,6 @@ public class LocationFileManager {
         this.pluginInstance = pluginInstance;
     }
 
-    public Location readLocation(String name) {
-        Map<String, Location> locations = this.readLocations();
-        return locations.get(name);
-    }
-
-    public List<String> readLocationNames() {
-        return new ArrayList<>(this.readLocations().keySet());
-    }
-
     public boolean saveLocation(String name, Location location) {
         Map<String, Location> locations = this.readLocations();
         locations.put(name, location);
@@ -59,11 +51,7 @@ public class LocationFileManager {
         return this.writeLocations(locations);
     }
 
-    public boolean hasLocation(String name) {
-        return this.readLocations().containsKey(name);
-    }
-
-    private Map<String, Location> readLocations() {
+    public Map<String, Location> readLocations() {
         File f = new File(this.pluginInstance.getDataFolder(), this.pluginInstance.getLocationFileName());
 
         if (f.exists()) {
