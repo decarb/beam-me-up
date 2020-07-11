@@ -17,6 +17,7 @@ public class BeamCommandManager implements TabExecutor {
     private final Map<String, SubCommand> subCommands;
 
     // TODO: Add command for "help"
+    // TODO: Remove names from subcommands interface
     public BeamCommandManager(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
 
@@ -51,10 +52,9 @@ public class BeamCommandManager implements TabExecutor {
                 return this.subCommands.keySet()
                         .stream()
                         .filter(s -> s.startsWith(args[0]))
-                        .sorted()
                         .collect(Collectors.toList());
             case 2:
-                if (this.subCommands.keySet().contains(args[0])) {
+                if (this.subCommands.containsKey(args[0])) {
                     String[] argStrings = Arrays.copyOfRange(args, 1, args.length);
                     return this.subCommands.get(args[0]).onTabComplete(sender, command, alias, argStrings);
                 } else return new ArrayList<>();

@@ -44,7 +44,7 @@ public class RemoveSubCommand extends SubCommand {
             LocationFileManager lfm = new LocationFileManager(this.pluginInstance);
             List<String> locations = lfm.readLocationNames();
 
-            return locations.stream().filter(s -> s.startsWith(args[0])).sorted().collect(Collectors.toList());
+            return locations.stream().filter(s -> s.startsWith(args[0])).collect(Collectors.toList());
         }
         return new ArrayList<>();
     }
