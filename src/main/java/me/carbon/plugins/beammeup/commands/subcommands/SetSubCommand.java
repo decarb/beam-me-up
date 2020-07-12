@@ -14,18 +14,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class SetSubCommand extends SubCommand {
-    private final String name;
     private final BeamMeUp pluginInstance;
     private final String permission = "beam.set";
 
-    public SetSubCommand(String name, BeamMeUp pluginInstance) {
-        this.name = name;
+    public SetSubCommand(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
     }
 
     @Override

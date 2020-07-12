@@ -16,16 +16,15 @@ public class BeamCommandManager implements TabExecutor {
     private final BeamMeUp pluginInstance;
     private final Map<String, SubCommand> subCommands;
 
-    // TODO: Add command for "help"
-    // TODO: Remove names from subcommands interface
+    // TODO: Add command for "help" - Not important
     public BeamCommandManager(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
 
         this.subCommands = new HashMap<>();
-        this.subCommands.put("go", new GoSubCommand("go", this.pluginInstance));
-        this.subCommands.put("set", new SetSubCommand("set", this.pluginInstance));
-        this.subCommands.put("list", new ListSubCommand("list", this.pluginInstance));
-        this.subCommands.put("remove", new RemoveSubCommand("remove", this.pluginInstance));
+        this.subCommands.put("go", new GoSubCommand(this.pluginInstance));
+        this.subCommands.put("set", new SetSubCommand(this.pluginInstance));
+        this.subCommands.put("list", new ListSubCommand(this.pluginInstance));
+        this.subCommands.put("remove", new RemoveSubCommand(this.pluginInstance));
     }
 
     // TODO: Allow for certain sub-commands to be run from the console

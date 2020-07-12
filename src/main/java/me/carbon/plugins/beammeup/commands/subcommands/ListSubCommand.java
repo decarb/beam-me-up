@@ -11,18 +11,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class ListSubCommand extends SubCommand {
-    private final String name;
     private final BeamMeUp pluginInstance;
     private final String permission = "beam.list";
 
-    public ListSubCommand(String name, BeamMeUp pluginInstance) {
-        this.name = name;
+    public ListSubCommand(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
     }
 
     @Override

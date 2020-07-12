@@ -14,18 +14,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class GoSubCommand extends SubCommand {
-    private final String name;
     private final BeamMeUp pluginInstance;
     private final String permission = "beam.go";
 
-    public GoSubCommand(String name, BeamMeUp pluginInstance) {
-        this.name = name;
+    public GoSubCommand(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
     }
 
     @Override
