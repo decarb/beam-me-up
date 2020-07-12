@@ -16,6 +16,7 @@ public class ListSubCommand extends SubCommand {
     public ListSubCommand(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
         this.permission = "beam.list";
+        this.isConsoleAllowed = true;
     }
 
     @Override

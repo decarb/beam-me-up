@@ -7,9 +7,14 @@ import java.util.List;
 
 public abstract class SubCommand {
     protected String permission;
+    protected Boolean isConsoleAllowed;
 
     public String getPermission() {
         return this.permission;
+    }
+
+    public Boolean isConsoleAllowed() {
+        return this.isConsoleAllowed;
     }
 
     public abstract void onCommand(CommandSender commandSender,

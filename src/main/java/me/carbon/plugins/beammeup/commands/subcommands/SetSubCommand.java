@@ -19,25 +19,28 @@ public class SetSubCommand extends SubCommand {
     public SetSubCommand(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
         this.permission = "beam.set";
+        this.isConsoleAllowed = false;
     }
 
     @Override
     public void onCommand(CommandSender commandSender, Command parentCommand, String alias, String[] args) {
-        if (commandSender.hasPermission(this.permission)) {
-            if (args.length == 1) {
-                LocationManager lm = this.pluginInstance.getLocationManager();
-                String name = args[0].toLowerCase();
-                Location here = ((Player) commandSender).getLocation();
+        if (commandSender instanceof Player) {
+            if (commandSender.hasPermission(this.permission)) {
+                if (args.length == 1) {
+                    LocationManager lm = this.pluginInstance.getLocationManager();
+                    String name = args[0].toLowerCase();
+                    Location here = ((Player) commandSender).getLocation();
 
-                if (lm.saveLocation(name, here)) commandSender.sendMessage("Locations updated successfully");
-                else commandSender.sendMessage("Something went wrong with the location saver");
-            } else commandSender.sendMessage("Expected one argument");
-        } else commandSender.sendMessage("You do not have permission to use this command");
+                    if (lm.saveLocation(name, here)) commandSender.sendMessage("Locations updated successfully");
+                    else commandSender.sendMessage("Something went wrong with the location saver");
+                } else commandSender.sendMessage("Expected one argument");
+            } else commandSender.sendMessage("You do not have permission to use this command");
+        } else commandSender.sendMessage("Only players are allowed to use this command");
     }
 
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String alias, String[] args) {
-        if (args.length == 1 && commandSender.hasPermission(this.permission)) {
+        if (args.length == 1 && commandSender.hasPermission(this.permission) && commandSender instanceof Player) {
             LocationManager lm = this.pluginInstance.getLocationManager();
             List<String> locations = lm.getLocationNames();
 

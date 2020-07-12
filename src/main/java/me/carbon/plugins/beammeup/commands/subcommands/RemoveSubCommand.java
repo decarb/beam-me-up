@@ -17,6 +17,7 @@ public class RemoveSubCommand extends SubCommand {
     public RemoveSubCommand(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
         this.permission = "beam.remove";
+        this.isConsoleAllowed = true;
     }
 
     @Override

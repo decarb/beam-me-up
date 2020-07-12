@@ -4,6 +4,7 @@ import me.carbon.plugins.beammeup.BeamMeUp;
 import me.carbon.plugins.beammeup.commands.subcommands.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 
@@ -11,12 +12,13 @@ import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+// TODO: Add usage when calling beam alone
+// TODO: Abstract out error messages
 // TODO: Use a listener to remove the stupid extra command?
 public class BeamCommandManager implements TabExecutor {
     private final BeamMeUp pluginInstance;
     private final Map<String, SubCommand> subCommands;
 
-    // TODO: Add command for "help" - Not important
     public BeamCommandManager(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
 
@@ -27,18 +29,15 @@ public class BeamCommandManager implements TabExecutor {
         this.subCommands.put("remove", new RemoveSubCommand(this.pluginInstance));
     }
 
-    // TODO: Allow for certain sub-commands to be run from the console
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if (commandSender instanceof Player) {
-            if (strings.length > 0) {
-                if (this.subCommands.containsKey(strings[0])) {
-                    SubCommand sub = this.subCommands.get(strings[0]);
-                    String[] args = Arrays.copyOfRange(strings, 1, strings.length);
-                    sub.onCommand(commandSender, command, s, args);
-                } else commandSender.sendMessage("Invalid sub-command " + strings[0]);
-            } else commandSender.sendMessage("No sub-command given for " + command.getName());
-        } else commandSender.sendMessage("Only players are allowed to use this command");
+        if (strings.length > 0) {
+            if (this.subCommands.containsKey(strings[0])) {
+                SubCommand sub = this.subCommands.get(strings[0]);
+                String[] args = Arrays.copyOfRange(strings, 1, strings.length);
+                sub.onCommand(commandSender, command, s, args);
+            } else commandSender.sendMessage("Invalid sub-command " + strings[0]);
+        } else commandSender.sendMessage("No sub-command given for " + command.getName());
 
         return true;
     }
@@ -47,7 +46,11 @@ public class BeamCommandManager implements TabExecutor {
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length == 1) {
             return this.subCommands.entrySet().stream()
-                    .filter(e -> sender.hasPermission(e.getValue().getPermission()) && e.getKey().startsWith(args[0]))
+                    .filter(e -> {
+                        if (sender instanceof ConsoleCommandSender) return e.getValue().isConsoleAllowed();
+                        else return sender.hasPermission(e.getValue().getPermission())
+                                && e.getKey().startsWith(args[0]);
+                    })
                     .map(Map.Entry::getKey)
                     .collect(Collectors.toList());
         } else if (this.subCommands.containsKey(args[0])) {
