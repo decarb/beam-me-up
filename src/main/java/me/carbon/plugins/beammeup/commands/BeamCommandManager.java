@@ -46,19 +46,14 @@ public class BeamCommandManager implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        switch (args.length) {
-            case 1:
-                return this.subCommands.entrySet().stream()
-                        .filter(e -> sender.hasPermission(e.getValue().getPermission()) && e.getKey().startsWith(args[0]))
-                        .map(Map.Entry::getKey)
-                        .collect(Collectors.toList());
-            case 2:
-                if (this.subCommands.containsKey(args[0])) {
-                    String[] argStrings = Arrays.copyOfRange(args, 1, args.length);
-                    return this.subCommands.get(args[0]).onTabComplete(sender, command, alias, argStrings);
-                } else return Collections.emptyList();
-            default:
-                return Collections.emptyList();
-        }
+        if (args.length == 1) {
+            return this.subCommands.entrySet().stream()
+                    .filter(e -> sender.hasPermission(e.getValue().getPermission()) && e.getKey().startsWith(args[0]))
+                    .map(Map.Entry::getKey)
+                    .collect(Collectors.toList());
+        } else if (this.subCommands.containsKey(args[0])) {
+            String[] argStrings = Arrays.copyOfRange(args, 1, args.length);
+            return this.subCommands.get(args[0]).onTabComplete(sender, command, alias, argStrings);
+        } else return Collections.emptyList();
     }
 }

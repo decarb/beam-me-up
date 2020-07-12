@@ -33,7 +33,6 @@ public class SetSubCommand extends SubCommand {
         return this.permission;
     }
 
-    // TODO: Abstract out permissions
     @Override
     public void onCommand(CommandSender commandSender, Command parentCommand, String alias, String[] args) {
         if (commandSender.hasPermission(this.permission)) {
@@ -50,7 +49,7 @@ public class SetSubCommand extends SubCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String alias, String[] args) {
-        if (args.length == 1) {
+        if (args.length == 1 && commandSender.hasPermission(this.permission)) {
             LocationManager lm = this.pluginInstance.getLocationManager();
             List<String> locations = lm.getLocationNames();
 

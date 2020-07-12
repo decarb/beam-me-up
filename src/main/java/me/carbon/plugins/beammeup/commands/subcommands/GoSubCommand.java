@@ -51,11 +51,13 @@ public class GoSubCommand extends SubCommand {
     // TODO: Abstract this out maybe? Too stupid to think about it now.
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String alias, String[] args) {
-        if (args.length == 1) {
+        if (args.length == 1 && commandSender.hasPermission(this.permission)) {
             LocationManager lm = this.pluginInstance.getLocationManager();
             List<String> locations = lm.getLocationNames();
 
-            return locations.stream().filter(s -> s.startsWith(args[0])).collect(Collectors.toList());
+            return locations.stream()
+                    .filter(s -> s.startsWith(args[0]))
+                    .collect(Collectors.toList());
         }
         return Collections.emptyList();
     }
