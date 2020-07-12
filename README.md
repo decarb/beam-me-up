@@ -26,10 +26,10 @@ This plugin SHOULD have multiverse support (saves worlds as UUID) however I have
 
 ## Usage
 ```
-/beam go <location> - teleports the player to a saved location with the name <location>
-/beam set <location> - takes the location the player is currently at and saves it as <location>
-/beam list - lists all the names of saved locations
-/beam remove <location> - removes a location from the list of saved locations
+/beam go <location>      - teleports the player to a saved location with the name <location>
+/beam set <location>     - takes the location the player is currently at and saves it as <location>
+/beam list               - lists all the names of saved locations
+/beam remove <location>  - removes a location from the list of saved locations
 ```
 
 ### Set sub-command
