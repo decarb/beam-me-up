@@ -12,15 +12,10 @@ import java.util.List;
 
 public class ListSubCommand extends SubCommand {
     private final BeamMeUp pluginInstance;
-    private final String permission = "beam.list";
 
     public ListSubCommand(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
-    }
-
-    @Override
-    public String getPermission() {
-        return this.permission;
+        this.permission = "beam.list";
     }
 
     @Override

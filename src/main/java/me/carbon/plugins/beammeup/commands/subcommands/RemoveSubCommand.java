@@ -13,15 +13,10 @@ import java.util.stream.Collectors;
 
 public class RemoveSubCommand extends SubCommand {
     private final BeamMeUp pluginInstance;
-    private final String permission = "beam.remove";
 
     public RemoveSubCommand(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
-    }
-
-    @Override
-    public String getPermission() {
-        return this.permission;
+        this.permission = "beam.remove";
     }
 
     @Override

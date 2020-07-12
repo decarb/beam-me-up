@@ -15,15 +15,10 @@ import java.util.stream.Collectors;
 
 public class GoSubCommand extends SubCommand {
     private final BeamMeUp pluginInstance;
-    private final String permission = "beam.go";
 
     public GoSubCommand(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
-    }
-
-    @Override
-    public String getPermission() {
-        return this.permission;
+        this.permission = "beam.go";
     }
 
     @Override

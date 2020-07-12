@@ -15,15 +15,10 @@ import java.util.stream.Collectors;
 
 public class SetSubCommand extends SubCommand {
     private final BeamMeUp pluginInstance;
-    private final String permission = "beam.set";
 
     public SetSubCommand(BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
-    }
-
-    @Override
-    public String getPermission() {
-        return this.permission;
+        this.permission = "beam.set";
     }
 
     @Override

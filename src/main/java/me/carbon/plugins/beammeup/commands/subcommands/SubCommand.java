@@ -6,7 +6,11 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 public abstract class SubCommand {
-    public abstract String getPermission();
+    protected String permission;
+
+    public String getPermission() {
+        return this.permission;
+    }
 
     public abstract void onCommand(CommandSender commandSender,
                                    Command parentCommand,
