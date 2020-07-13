@@ -6,8 +6,13 @@ import org.bukkit.command.CommandSender;
 import java.util.List;
 
 public abstract class SubCommand {
-    protected String permission;
-    protected Boolean isConsoleAllowed;
+    protected final String permission;
+    protected final Boolean isConsoleAllowed;
+
+    public SubCommand(String permission, Boolean isConsoleAllowed) {
+        this.permission = permission;
+        this.isConsoleAllowed = isConsoleAllowed;
+    }
 
     public String getPermission() {
         return this.permission;

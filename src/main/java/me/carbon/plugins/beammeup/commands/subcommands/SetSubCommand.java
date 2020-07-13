@@ -8,6 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import javax.imageio.plugins.jpeg.JPEGImageReadParam;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,9 +18,8 @@ public class SetSubCommand extends SubCommand {
     private final BeamMeUp pluginInstance;
 
     public SetSubCommand(BeamMeUp pluginInstance) {
+        super("beam.set", false);
         this.pluginInstance = pluginInstance;
-        this.permission = "beam.set";
-        this.isConsoleAllowed = false;
     }
 
     @Override

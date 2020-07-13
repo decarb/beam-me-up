@@ -17,9 +17,8 @@ public class GoSubCommand extends SubCommand {
     private final BeamMeUp pluginInstance;
 
     public GoSubCommand(BeamMeUp pluginInstance) {
+        super("beam.go", false);
         this.pluginInstance = pluginInstance;
-        this.permission = "beam.go";
-        this.isConsoleAllowed = false;
     }
 
     @Override
