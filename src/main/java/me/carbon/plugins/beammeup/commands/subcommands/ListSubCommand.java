@@ -35,6 +35,6 @@ public class ListSubCommand extends SubCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String alias, String[] args) {
-        return Collections.emptyList();
+        return new ArrayList<>();
     }
 }

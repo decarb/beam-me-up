@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Changed the implementation of the `SubCommand` abstract class to make it more streamlined
 - Allowed the `remove` and `list` sub-commands to be used from the console
+- Fixed a bug that caused an internal error when trying to save a location with no file
 
 ## [1.2.0] - 12/07/2020
 ### Added

@@ -44,6 +44,6 @@ public class RemoveSubCommand extends SubCommand {
                     .filter(s -> s.startsWith(args[0]))
                     .collect(Collectors.toList());
         }
-        return Collections.emptyList();
+        return new ArrayList<>();
     }
 }

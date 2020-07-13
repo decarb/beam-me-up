@@ -10,10 +10,10 @@ commands:
     description: "Root command for the beam-me-up plugin"
     permission: beam.command
     usage: |
-      /beam go <location>      - teleports the player to a saved location with the name <location>
-      /beam set <location>     - takes the location the player is currently at and saves it as <location>
-      /beam list               - lists all the names of saved locations
-      /beam remove <location>  - removes a location from the list of saved locations
+      /beam go <location>
+      /beam set <location>
+      /beam list
+      /beam remove <location>
 
 permissions:
   beam.command:

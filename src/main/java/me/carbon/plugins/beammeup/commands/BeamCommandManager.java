@@ -12,21 +12,27 @@ import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+// TODO: Abstract out command manager
 // TODO: Add usage when calling beam alone
 // TODO: Abstract out error messages
-// TODO: Use a listener to remove the stupid extra command?
 public class BeamCommandManager implements TabExecutor {
     private final BeamMeUp pluginInstance;
     private final Map<String, SubCommand> subCommands;
+    private final String name;
 
-    public BeamCommandManager(BeamMeUp pluginInstance) {
+    public BeamCommandManager(String name, BeamMeUp pluginInstance) {
         this.pluginInstance = pluginInstance;
+        this.name = name;
 
         this.subCommands = new HashMap<>();
         this.subCommands.put("go", new GoSubCommand(this.pluginInstance));
         this.subCommands.put("set", new SetSubCommand(this.pluginInstance));
         this.subCommands.put("list", new ListSubCommand(this.pluginInstance));
         this.subCommands.put("remove", new RemoveSubCommand(this.pluginInstance));
+    }
+
+    private void onBaseCommand(CommandSender commandSender, Command command, String s) {
+        commandSender.sendMessage(this.pluginInstance.getCommand(name).getUsage());
     }
 
     @Override
@@ -37,7 +43,7 @@ public class BeamCommandManager implements TabExecutor {
                 String[] args = Arrays.copyOfRange(strings, 1, strings.length);
                 sub.onCommand(commandSender, command, s, args);
             } else commandSender.sendMessage("Invalid sub-command " + strings[0]);
-        } else commandSender.sendMessage("No sub-command given for " + command.getName());
+        } else this.onBaseCommand(commandSender, command, s);
 
         return true;
     }
@@ -56,6 +62,6 @@ public class BeamCommandManager implements TabExecutor {
         } else if (this.subCommands.containsKey(args[0])) {
             String[] argStrings = Arrays.copyOfRange(args, 1, args.length);
             return this.subCommands.get(args[0]).onTabComplete(sender, command, alias, argStrings);
-        } else return Collections.emptyList();
+        } else return new ArrayList<>();
     }
 }

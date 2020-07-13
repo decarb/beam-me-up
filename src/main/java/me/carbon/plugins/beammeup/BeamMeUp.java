@@ -6,6 +6,7 @@ import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+// TODO: Try and streamline the LocationManager class
 // TODO: Add some documentation you fool!
 public class BeamMeUp extends JavaPlugin {
     private String locationFileName;
@@ -22,7 +23,7 @@ public class BeamMeUp extends JavaPlugin {
         this.locationFileName = this.getConfig().getString("location-file-name");
         this.lm = new LocationManager(this);
 
-        this.getCommand("beam").setExecutor(new BeamCommandManager(this));
+        this.getCommand("beam").setExecutor(new BeamCommandManager("beam", this));
         this.getLogger().info("beam-me-up enabled!");
     }
 
