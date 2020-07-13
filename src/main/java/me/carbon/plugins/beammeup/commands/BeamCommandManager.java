@@ -6,14 +6,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabExecutor;
-import org.bukkit.entity.Player;
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 // TODO: Abstract out command manager
-// TODO: Add usage when calling beam alone
 // TODO: Abstract out error messages
 public class BeamCommandManager implements TabExecutor {
     private final BeamMeUp pluginInstance;

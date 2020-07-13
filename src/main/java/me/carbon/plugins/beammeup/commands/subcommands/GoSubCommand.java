@@ -1,15 +1,12 @@
 package me.carbon.plugins.beammeup.commands.subcommands;
 
 import me.carbon.plugins.beammeup.BeamMeUp;
-import me.carbon.plugins.beammeup.locations.LocationFileManager;
 import me.carbon.plugins.beammeup.locations.LocationManager;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +35,7 @@ public class GoSubCommand extends SubCommand {
         } else commandSender.sendMessage("Only players are allowed to use this command");
     }
 
-    // TODO: Abstract this out maybe? Too stupid to think about it now.
+    // TODO: Abstract this out maybe?
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String alias, String[] args) {
         if (args.length == 1 && commandSender.hasPermission(this.permission) && commandSender instanceof Player) {
