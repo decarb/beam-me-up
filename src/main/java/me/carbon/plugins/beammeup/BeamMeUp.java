@@ -19,14 +19,10 @@ public class BeamMeUp extends JavaPlugin {
     public void onEnable() {
         this.saveDefaultConfig();
         this.locationFileName = this.getConfig().getString("location-file-name");
-        this.lm = new LocationManager(this);
+        this.lm = new LocationManager(this.getDataFolder(), this.locationFileName);
 
         this.getCommand("beam").setExecutor(new BeamCommandManager("beam", this));
         this.getLogger().info("beam-me-up enabled!");
-    }
-
-    public String getLocationFileName() {
-        return this.locationFileName;
     }
 
     public LocationManager getLocationManager() {

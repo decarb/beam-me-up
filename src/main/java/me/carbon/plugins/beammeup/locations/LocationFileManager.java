@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import me.carbon.plugins.beammeup.BeamMeUp;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 import java.io.File;
@@ -33,10 +33,12 @@ public class LocationFileManager {
         }
     }
 
-    private final BeamMeUp pluginInstance;
+    private final File dataFolder;
+    private final String fileName;
 
-    public LocationFileManager(BeamMeUp pluginInstance) {
-        this.pluginInstance = pluginInstance;
+    public LocationFileManager(File dataFolder, String fileName) {
+        this.dataFolder = dataFolder;
+        this.fileName = fileName;
     }
 
     public boolean saveLocation(String name, Location location) {
@@ -52,7 +54,7 @@ public class LocationFileManager {
     }
 
     public Map<String, Location> readLocations() {
-        File f = new File(this.pluginInstance.getDataFolder(), this.pluginInstance.getLocationFileName());
+        File f = new File(this.dataFolder, this.fileName);
 
         if (f.exists()) {
             try {
@@ -66,7 +68,7 @@ public class LocationFileManager {
                 Map<String, Location> out = locations.stream().collect(
                         Collectors.toMap(
                                 l -> l.name,
-                                l -> new Location(this.pluginInstance.getServer().getWorld(l.world_uuid), l.x, l.y, l.z)
+                                l -> new Location(Bukkit.getWorld(l.world_uuid), l.x, l.y, l.z)
                         )
                 );
 
@@ -82,8 +84,8 @@ public class LocationFileManager {
     }
 
     private boolean writeLocations(Map<String, Location> locations) {
-        File dataFolder = this.pluginInstance.getDataFolder();
-        File f = new File(dataFolder, this.pluginInstance.getLocationFileName());
+        File dataFolder = this.dataFolder;
+        File f = new File(dataFolder, this.fileName);
 
         try {
             if (!dataFolder.exists()) dataFolder.mkdirs();

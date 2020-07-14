@@ -3,6 +3,7 @@ package me.carbon.plugins.beammeup.locations;
 import me.carbon.plugins.beammeup.BeamMeUp;
 import org.bukkit.Location;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +12,8 @@ public class LocationManager {
     private final Map<String, Location> locations;
     private final LocationFileManager lfm;
 
-    public LocationManager(BeamMeUp pluginInstance) {
-        this.lfm = new LocationFileManager(pluginInstance);
+    public LocationManager(File dataFolder, String locationFileName) {
+        this.lfm = new LocationFileManager(dataFolder, locationFileName);
         this.locations = lfm.readLocations();
     }
 
