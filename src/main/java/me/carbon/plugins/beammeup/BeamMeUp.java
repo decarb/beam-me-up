@@ -4,7 +4,6 @@ import me.carbon.plugins.beammeup.commands.BeamCommandManager;
 import me.carbon.plugins.beammeup.locations.LocationManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-// TODO: Try and streamline the LocationManager interface
 // TODO: Add some documentation you fool!
 public class BeamMeUp extends JavaPlugin {
     private String locationFileName;
