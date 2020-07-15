@@ -1,6 +1,5 @@
 package me.carbon.plugins.beammeup.locations;
 
-import me.carbon.plugins.beammeup.BeamMeUp;
 import org.bukkit.Location;
 
 import java.io.File;

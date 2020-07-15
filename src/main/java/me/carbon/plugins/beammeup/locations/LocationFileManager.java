@@ -15,7 +15,6 @@ import java.lang.reflect.Type;
 import java.util.*;
 import java.util.stream.Collectors;
 
-// TODO: Implement service-repo model (Not too important - more important for PostgreSQL integration)
 public class LocationFileManager {
     private class LocationJson {
         private final String name;

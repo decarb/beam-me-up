@@ -24,6 +24,8 @@ example of a `locations.json` file.
 
 This plugin SHOULD have multiverse support (saves worlds as UUID) however I have not tested it, so try at your own risk!
 
+## [Changelog](CHANGELOG.md)
+
 ## Usage
 ```
 /beam go <location>
