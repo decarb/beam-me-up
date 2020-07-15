@@ -7,7 +7,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 // TODO: Implement groups for locations
 // TODO: Add some documentation you fool!
 public class BeamMeUp extends JavaPlugin {
-    private String locationFileName;
     private LocationManager lm;
 
     @Override
@@ -18,8 +17,8 @@ public class BeamMeUp extends JavaPlugin {
     @Override
     public void onEnable() {
         this.saveDefaultConfig();
-        this.locationFileName = this.getConfig().getString("location-file-name");
-        this.lm = new LocationManager(this.getDataFolder(), this.locationFileName);
+        String locationFileName = this.getConfig().getString("location-file-name");
+        this.lm = new LocationManager(this.getDataFolder(), locationFileName);
 
         this.getCommand("beam").setExecutor(new BeamCommandManager("beam", this));
         this.getLogger().info("beam-me-up enabled!");
