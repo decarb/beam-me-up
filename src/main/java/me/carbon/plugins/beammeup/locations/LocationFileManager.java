@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class LocationFileManager {
-    private class LocationJson {
+    private static class LocationJson {
         private final String name;
         private final UUID world_uuid;
         private final double x;
@@ -49,6 +49,15 @@ public class LocationFileManager {
     public boolean removeLocation(String name) {
         Map<String, Location> locations = this.readLocations();
         locations.remove(name);
+        return this.writeLocations(locations);
+    }
+
+    // TODO: Make this whole class more robust to errors
+    public boolean renameLocation(String name, String rename) {
+        Map<String, Location> locations = this.readLocations();
+        Location location = locations.get(name);
+        locations.remove(name);
+        locations.put(rename, location);
         return this.writeLocations(locations);
     }
 

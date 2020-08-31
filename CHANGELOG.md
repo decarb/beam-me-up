@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Cleaned up the `LocationFileManager` class
 
+### Added
+- Added a `rename` command that allows players to rename their existing locations
+
 ## [1.2.1] - 13/07/2020
 ### Changed
 - Changed the implementation of the `SubCommand` abstract class to make it more streamlined

@@ -26,6 +26,7 @@ public class BeamCommandManager implements TabExecutor {
         this.subCommands.put("set", new SetSubCommand(this.pluginInstance));
         this.subCommands.put("list", new ListSubCommand(this.pluginInstance));
         this.subCommands.put("remove", new RemoveSubCommand(this.pluginInstance));
+        this.subCommands.put("rename", new RenameSubCommand(this.pluginInstance));
     }
 
     private void onBaseCommand(CommandSender commandSender, Command command, String s) {

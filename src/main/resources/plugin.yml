@@ -14,6 +14,7 @@ commands:
       /beam set <location>
       /beam list
       /beam remove <location>
+      /beam rename <location> <newName>
 
 permissions:
   beam.command:
@@ -28,6 +29,7 @@ permissions:
       beam.set: true
       beam.list: true
       beam.remove: true
+      beam.rename: true
 
   beam.go:
     description: Permission to allow the go sub-command
@@ -49,6 +51,12 @@ permissions:
 
   beam.remove:
     description: Permission to allow the remove sub-command
+    default: false
+    children:
+      beam.command: true
+
+  beam.rename:
+    description: Permission to allow the rename sub-command
     default: false
     children:
       beam.command: true

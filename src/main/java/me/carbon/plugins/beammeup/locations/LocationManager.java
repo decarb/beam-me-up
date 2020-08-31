@@ -45,4 +45,13 @@ public class LocationManager {
     public boolean hasLocation(String name) {
         return this.locations.containsKey(name);
     }
+
+    public boolean renameLocation(String name, String rename) {
+        if (this.lfm.renameLocation(name, rename)) {
+            Location location = this.locations.get(name);
+            this.locations.remove(name);
+            this.locations.put(rename, location);
+            return true;
+        } else return false;
+    }
 }

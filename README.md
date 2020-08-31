@@ -56,6 +56,12 @@ The remove command takes the location name argument provided and attempts to rem
 
 Example usage: `/beam remove sand`
 
+### Rename sub-command
+The rename command takes a location name as well as a new name and renames the location in `locations.json` to the new 
+name.
+
+Example usage: `/beam rename sand dirt`
+
 ## Permissions
 ```yaml
 permissions:
@@ -71,6 +77,7 @@ permissions:
       beam.set: true
       beam.list: true
       beam.remove: true
+      beam.rename: true
 
   beam.go:
     description: Permission to allow the go sub-command
@@ -92,6 +99,12 @@ permissions:
 
   beam.remove:
     description: Permission to allow the remove sub-command
+    default: false
+    children:
+      beam.command: true
+
+  beam.rename:
+    description: Permission to allow the rename sub-command
     default: false
     children:
       beam.command: true

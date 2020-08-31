@@ -36,6 +36,7 @@ public class GoSubCommand extends SubCommand {
     }
 
     // TODO: Abstract this out maybe?
+    // TODO: I don't like these instanceof calls for the Player if I already have a isConsoleAllowed field
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String alias, String[] args) {
         if (args.length == 1 && commandSender.hasPermission(this.permission) && commandSender instanceof Player) {
