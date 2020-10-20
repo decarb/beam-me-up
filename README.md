@@ -33,6 +33,7 @@ This plugin SHOULD have multiverse support (saves worlds as UUID) however I have
 /beam set <location>
 /beam list
 /beam remove <location>
+/beam rename <location> <newName>
 ```
 
 ### Set sub-command
