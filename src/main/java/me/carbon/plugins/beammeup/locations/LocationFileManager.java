@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import me.carbon.plugins.beammeup.models.LocationJson;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
@@ -12,26 +13,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LocationFileManager {
-    private static class LocationJson {
-        private final String name;
-        private final UUID world_uuid;
-        private final double x;
-        private final double y;
-        private final double z;
-
-        public LocationJson(String name, UUID worldUuid, double x, double y, double z) {
-            this.name = name;
-            this.world_uuid = worldUuid;
-            this.x = x;
-            this.y = y;
-            this.z = z;
-        }
-    }
-
     private final File dataFolder;
     private final String fileName;
 
@@ -66,17 +52,20 @@ public class LocationFileManager {
 
         if (f.exists()) {
             try {
-                Type locationsType = new TypeToken<ArrayList<LocationJson>>() {
+                Type locationsType = new TypeToken<Map<String, LocationJson>>() {
                 }.getType();
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 JsonReader jr = new JsonReader(new FileReader(f));
 
-                List<LocationJson> locations = gson.fromJson(jr, locationsType);
+                Map<String, LocationJson> locations = gson.fromJson(jr, locationsType);
 
-                Map<String, Location> out = locations.stream().collect(
+                Map<String, Location> out = locations.entrySet().stream().collect(
                         Collectors.toMap(
-                                l -> l.name,
-                                l -> new Location(Bukkit.getWorld(l.world_uuid), l.x, l.y, l.z)
+                                Map.Entry::getKey,
+                                l -> {
+                                    LocationJson value = l.getValue();
+                                    return new Location(Bukkit.getWorld(value.world_uuid), value.x, value.y, value.z);
+                                }
                         )
                 );
 
@@ -100,15 +89,20 @@ public class LocationFileManager {
             FileWriter fw = new FileWriter(f, false);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-            List<LocationJson> locationJson = locations.entrySet().stream().map(e ->
-                    new LocationJson(
-                            e.getKey(),
-                            e.getValue().getWorld().getUID(),
-                            e.getValue().getX(),
-                            e.getValue().getY(),
-                            e.getValue().getZ()
+            Map<String, LocationJson> locationJson = locations.entrySet().stream().collect(
+                    Collectors.toMap(
+                            Map.Entry::getKey,
+                            l -> {
+                                Location value = l.getValue();
+                                return new LocationJson(
+                                        value.getWorld().getUID(),
+                                        value.getX(),
+                                        value.getY(),
+                                        value.getZ()
+                                );
+                            }
                     )
-            ).collect(Collectors.toList());
+            );
 
             fw.write(gson.toJson(locationJson));
             fw.flush();
@@ -117,8 +111,8 @@ public class LocationFileManager {
             return true;
         } catch (IOException e) {
             e.printStackTrace();
-
-            return false;
         }
+
+        return false;
     }
 }

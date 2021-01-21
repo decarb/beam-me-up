@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.2.2]: https://github.com/decarb/beam-me-up/releases/tag/v1.2.2
 [1.2.1]: https://github.com/decarb/beam-me-up/releases/tag/v1.2.1
 [1.2.0]: https://github.com/decarb/beam-me-up/releases/tag/v1.2.0
+[2.0.0]: https://github.com/decarb/beam-me-up/releases/tag/v2.0.0
 
 ## [Unreleased]
 
@@ -16,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added a `rename` command that allows players to rename their existing locations
 ### Changed
 - Changed the plugin to exclusively use the PaperMC API and not the SpigotMC API
+- Changed the format of the JSON output of the location manager - **THIS WILL INVALIDATE ALL PREVIOUS LOCATIONS**
 
 ## [1.2.1] - 13/07/2020
 ### Changed
