@@ -19,7 +19,7 @@ public class ListSubCommand extends SubCommand {
 
     @Override
     public void onCommand(CommandSender commandSender, Command parentCommand, String alias, String[] args) {
-        if (commandSender.hasPermission(this.permission)) {
+        if (commandSender.hasPermission(getPermission())) {
             if (args.length == 0) {
                 LocationManager lm = this.pluginInstance.getLocationManager();
                 List<String> locationList = lm.getLocationNames();

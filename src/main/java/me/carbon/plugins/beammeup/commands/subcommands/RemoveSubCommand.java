@@ -19,7 +19,7 @@ public class RemoveSubCommand extends SubCommand {
 
     @Override
     public void onCommand(CommandSender commandSender, Command parentCommand, String alias, String[] args) {
-        if (commandSender.hasPermission(this.permission)) {
+        if (commandSender.hasPermission(getPermission())) {
             if (args.length == 1) {
                 LocationManager lm = this.pluginInstance.getLocationManager();
                 String name = args[0].toLowerCase();
@@ -34,7 +34,7 @@ public class RemoveSubCommand extends SubCommand {
 
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String alias, String[] args) {
-        if (args.length == 1 && commandSender.hasPermission(this.permission)) {
+        if (args.length == 1 && commandSender.hasPermission(getPermission())) {
             LocationManager lm = this.pluginInstance.getLocationManager();
             List<String> locations = lm.getLocationNames();
 
