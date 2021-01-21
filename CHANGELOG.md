@@ -11,9 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.2.2]
+## [2.0.0]
 ### Added
 - Added a `rename` command that allows players to rename their existing locations
+### Changed
+- Changed the plugin to exclusively use the PaperMC API and not the SpigotMC API
 
 ## [1.2.1] - 13/07/2020
 ### Changed

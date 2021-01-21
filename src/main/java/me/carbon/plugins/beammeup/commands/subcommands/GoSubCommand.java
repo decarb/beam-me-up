@@ -27,7 +27,7 @@ public class GoSubCommand extends SubCommand {
                     String name = args[0].toLowerCase();
 
                     if (lm.hasLocation(name)) {
-                        ((Player) commandSender).teleport(lm.getLocation(name));
+                        ((Player) commandSender).teleportAsync(lm.getLocation(name));
                         commandSender.sendMessage("You were teleported to " + name);
                     } else commandSender.sendMessage("Location " + name + " does not exist");
                 } else commandSender.sendMessage("Expected one argument");
